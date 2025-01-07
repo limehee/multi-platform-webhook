@@ -1,0 +1,39 @@
+# H2 database configuration
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+# Messaging configuration
+notification:
+  common:
+    web-url: "${WEB_URL}"
+    api-url: "${API_URL}"
+    color: "#FF968A"
+  platforms:
+    slack:
+      webhooks:
+        slack-channel: "${SLACK_CHANNEL_WEBHOOK_URL}"
+    discord:
+      webhooks:
+        discord-channel: "${DISCORD_CHANNEL_WEBHOOK_URL}"
+  category-mappings:
+    GENERAL:
+      - platform: slack
+        webhook: slack-channel
+      - platform: discord
+        webhook: discord-channel
+  default-mappings:
+    - platform: slack
+      webhook: slack-channel
+    - platform: discord
+      webhook: discord-channel
